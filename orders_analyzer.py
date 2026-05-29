@@ -43,6 +43,10 @@ def load_orders(filename):
         return orders
 
 
+def format_money(value):
+    return f"{value:,.2f}".replace(","," ")
+
+
 def calculate_metrics(orders):
     total_revenue = 0
     total_orders = len(orders)
@@ -104,7 +108,7 @@ def print_report(total_revenue,
 
     print("Revenue by customer: ")
     for name in revenue_by_customer:
-        print(f"- {name}: {revenue_by_customer[name]} PLN")
+        print(f"- {name}: {format_money(revenue_by_customer[name])} PLN")
     print()
     print("Orders by customer: ")
     for name in orders_by_customer:
@@ -115,20 +119,20 @@ def print_report(total_revenue,
     print()
     print("Revenue by country: ")
     for country in revenue_by_country:
-        print(f"- {country}: {revenue_by_country[country]} PLN")
+        print(f"- {country}: {format_money(revenue_by_country[country])} PLN")
     print()
     print("Revenue by category: ")
     for category in revenue_by_category:
-        print(f"- {category}: {revenue_by_category[category]} PLN")
+        print(f"- {category}: {format_money(revenue_by_category[category])} PLN")
 
     print()
-    print(f"Total revenue: {total_revenue} PLN")
+    print(f"Total revenue: {format_money(total_revenue)} PLN")
     print(f"Total orders: {total_orders}")
-    print(f"Average order value: {average_order_value} PLN")
+    print(f"Average order value: {format_money(average_order_value)} PLN")
     print(f"Customer with most orders: {top_orders_customer_name} - {top_orders_customer_value} orders.")
-    print(f"Customer with highest revenue: {highest_revenue_customer_name} - {highest_revenue_customer_value} PLN")
-    print(f"Country with highest revenue: {top_revenue_country_name} - {top_revenue_country_value} PLN")
-    print(f"Category with highest revenue: {top_revenue_category_name} - {top_revenue_category_value} PLN")
+    print(f"Customer with highest revenue: {highest_revenue_customer_name} - {format_money(highest_revenue_customer_value)} PLN")
+    print(f"Country with highest revenue: {top_revenue_country_name} - {format_money(top_revenue_country_value)} PLN")
+    print(f"Category with highest revenue: {top_revenue_category_name} - {format_money(top_revenue_category_value)} PLN")
     print(f"Unique customers: {len(unique_customers)}")
 
 def main():
