@@ -3,13 +3,13 @@ import re
 import sys
 
 def find_top_item(data):
-    highest_data_name = list(data.keys())[0]
-    highest_data_value = data[highest_data_name]
+    top_item_name = list(data.keys())[0]
+    top_item_value = data[top_item_name]
     for name in data:
-        if data[name] > highest_data_value:
-            highest_data_value = data[name]
-            highest_data_name = name
-    return highest_data_name, highest_data_value
+        if data[name] > top_item_value:
+            top_item_value = data[name]
+            top_item_name = name
+    return top_item_name, top_item_value
 
 
 def load_orders(filename):
