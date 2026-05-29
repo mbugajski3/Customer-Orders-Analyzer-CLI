@@ -139,7 +139,7 @@ def print_report(total_revenue,
 def main():
 
     if len(sys.argv) < 2:
-        print("Usage: orders_analyzer.py filename.csv")
+        print("Usage: orders_analyzer.py filename.csv.")
         exit()
 
     filename = sys.argv[1]
@@ -148,8 +148,11 @@ def main():
         print("Error: input file must be a .csv file.")
         exit()
 
-    
-    orders = load_orders(filename)
+    try:
+        orders = load_orders(filename)
+    except FileNotFoundError:
+        print("Error: File not found.")
+        exit()
 
     total_revenue, total_orders, average_order_value, revenue_by_customer, orders_by_customer, unique_customers, revenue_by_country, revenue_by_category = calculate_metrics(orders)
 
