@@ -17,8 +17,7 @@ def load_orders(filename):
         reader = csv.DictReader(file)
 
         if reader.fieldnames is None:
-            print("Error: CSV file is empty.")
-            exit()
+            raise ValueError("CSV file is empty.")
 
         required_columns = ["order_id",
                             "date",
@@ -38,20 +37,16 @@ def load_orders(filename):
                 missing_columns.append(column)
 
         if len(missing_columns) != 0:
-            print(f"Error: missing columns - {missing_columns}")
-            exit()
-
+            raise ValueError(f"missing columns - {missing_columns}")
 
         orders = []
-
 
         for row in reader:
             for column in required_columns:
                 if row[column].strip() == "":
-                    print(f"Error: missing value in {column}")
-                    exit()
-
-
+                    raise ValueError(f"Error: missing value in {column}")
+            
+               
             order_id = int(row["order_id"])
             date = row["date"]
             customer_id = row["customer_id"]
@@ -63,14 +58,11 @@ def load_orders(filename):
             country = row["country"]
 
             if quantity <= 0:
-                print("Error: quantity cannot be negative or zero.")
-                exit()
+                raise ValueError("Error: quantity cannot be negative or zero.")                
 
             if price < 0:
-                print("Error: price cannot be negative.")
-                exit()
-
-
+                raise ValueError("Error: price cannot be negative.")
+                
             order = {
                 "order_id": order_id,
                 "date": date,
@@ -197,8 +189,8 @@ def main():
     except FileNotFoundError:
         print("Error: File not found.")
         exit()
-    except ValueError:
-        print("Error: invalid numeric value in CSV file.")
+    except ValueError as error:
+        print(f"Error: {error}")
         exit()
 
     if not orders:
