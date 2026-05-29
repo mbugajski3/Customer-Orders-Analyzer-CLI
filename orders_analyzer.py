@@ -9,6 +9,7 @@ def find_top_item(data):
             highest_data_name = name
     return highest_data_name, highest_data_value
 
+
 def load_orders(filename):
     with open(filename) as file:
         reader = csv.DictReader(file)
@@ -43,8 +44,6 @@ def load_orders(filename):
 
 
 def calculate_metrics(orders):
-
-
     total_revenue = 0
     total_orders = len(orders)
     revenue_by_customer = {}
@@ -85,6 +84,54 @@ def calculate_metrics(orders):
     return total_revenue, total_orders, average_order_value, revenue_by_customer, orders_by_customer, unique_customers, revenue_by_country, revenue_by_category
 
 
+def print_report(total_revenue,
+                total_orders,
+                average_order_value,
+                revenue_by_customer,
+                orders_by_customer,
+                unique_customers,
+                revenue_by_country,
+                revenue_by_category,
+                highest_revenue_customer_name,
+                highest_revenue_customer_value,
+                top_orders_customer_name,
+                top_orders_customer_value,
+                top_revenue_country_name,
+                top_revenue_country_value,
+                top_revenue_category_name, 
+                top_revenue_category_value
+    ):
+
+    print("Revenue by customer: ")
+    for name in revenue_by_customer:
+        print(f"- {name}: {revenue_by_customer[name]} PLN")
+    print()
+    print("Orders by customer: ")
+    for name in orders_by_customer:
+        if orders_by_customer[name] == 1:
+            print(f"- {name}: {orders_by_customer[name]} order")
+        else:
+            print(f"- {name}: {orders_by_customer[name]} orders")
+    print()
+    print("Revenue by country: ")
+    for country in revenue_by_country:
+        print(f"- {country}: {revenue_by_country[country]} PLN")
+    print()
+    print("Revenue by category: ")
+    for category in revenue_by_category:
+        print(f"- {category}: {revenue_by_category[category]} PLN")
+
+    print()
+    print(f"Total revenue: {total_revenue} PLN")
+    print(f"Total orders: {total_orders}")
+    print(f"Average order value: {average_order_value} PLN")
+    print(f"Customer with most orders: {top_orders_customer_name} - {top_orders_customer_value} orders.")
+    print(f"Customer with highest revenue: {highest_revenue_customer_name} - {highest_revenue_customer_value} PLN")
+    print(f"Country with highest revenue: {top_revenue_country_name} - {top_revenue_country_value} PLN")
+    print(f"Category with highest revenue: {top_revenue_category_name} - {top_revenue_category_value} PLN")
+    print(f"Unique customers: {len(unique_customers)}")
+
+
 orders = load_orders("orders.csv")
 
 total_revenue, total_orders, average_order_value, revenue_by_customer, orders_by_customer, unique_customers, revenue_by_country, revenue_by_category = calculate_metrics(orders)
@@ -97,32 +144,24 @@ top_revenue_country_name, top_revenue_country_value = find_top_item(revenue_by_c
 
 top_revenue_category_name, top_revenue_category_value = find_top_item(revenue_by_category)
 
-print("Revenue by customer: ")
-for name in revenue_by_customer:
-    print(f"- {name}: {revenue_by_customer[name]} PLN")
-print()
-print("Orders by customer: ")
-for name in orders_by_customer:
-    if orders_by_customer[name] == 1:
-        print(f"- {name}: {orders_by_customer[name]} order")
-    else:
-        print(f"- {name}: {orders_by_customer[name]} orders")
-print()
-print("Revenue by country: ")
-for country in revenue_by_country:
-    print(f"- {country}: {revenue_by_country[country]} PLN")
-print()
-print("Revenue by category: ")
-for category in revenue_by_category:
-    print(f"- {category}: {revenue_by_category[category]} PLN")
+print_report(total_revenue,
+                total_orders,
+                average_order_value,
+                revenue_by_customer,
+                orders_by_customer,
+                unique_customers,
+                revenue_by_country,
+                revenue_by_category,
+                highest_revenue_customer_name,
+                highest_revenue_customer_value,
+                top_orders_customer_name,
+                top_orders_customer_value,
+                top_revenue_country_name,
+                top_revenue_country_value,
+                top_revenue_category_name, 
+                top_revenue_category_value
+)
 
-print()
-print(f"Total revenue: {total_revenue} PLN")
-print(f"Total orders: {total_orders}")
-print(f"Average order value: {average_order_value} PLN")
-print(f"Customer with most orders: {top_orders_customer_name} - {top_orders_customer_value} orders.")
-print(f"Customer with highest revenue: {highest_revenue_customer_name} - {highest_revenue_customer_value} PLN")
-print(f"Country with highest revenue: {top_revenue_country_name} - {top_revenue_country_value} PLN")
-print(f"Category with highest revenue: {top_revenue_category_name} - {top_revenue_category_value} PLN")
-print(f"Unique customers: {len(unique_customers)}")
+
+
 
