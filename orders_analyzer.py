@@ -1,4 +1,5 @@
 import csv
+import sys
 
 def find_top_item(data):
     highest_data_name = list(data.keys())[0]
@@ -44,7 +45,7 @@ def load_orders(filename):
 
 
 def format_money(value):
-    return f"{value:,.2f}".replace(","," ")
+    return f"{value:,.2f}".replace(",", " ")
 
 
 def calculate_metrics(orders):
@@ -136,7 +137,15 @@ def print_report(total_revenue,
     print(f"Unique customers: {len(unique_customers)}")
 
 def main():
-    orders = load_orders("orders.csv")
+
+    if len(sys.argv) < 2:
+        print("Usage: orders_analyzer.py filename.csv")
+        exit()
+
+    filename = sys.argv[1]
+
+    
+    orders = load_orders(filename)
 
     total_revenue, total_orders, average_order_value, revenue_by_customer, orders_by_customer, unique_customers, revenue_by_country, revenue_by_category = calculate_metrics(orders)
 
