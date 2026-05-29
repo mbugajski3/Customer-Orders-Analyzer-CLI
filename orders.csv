@@ -1,11 +1,1 @@
 order_id,date,customer_id,customer_name,product,category,quantity,price,country
-1,2025-01-01,C001,John Smith,Laptop,Electronics,1,6200,Germany
-2,2025-01-01,C002,Anna Nowak,Office Chair,Furniture,2,850,Poland
-3,2025-01-02,C001,John Smith,Wireless Mouse,Electronics,3,120,Germany
-4,2025-01-02,C003,Mark Brown,Standing Desk,Furniture,1,2400,United Kingdom
-5,2025-01-03,C004,Sofia Garcia,Coffee Beans,Food,10,65,Spain
-6,2025-01-03,C002,Anna Nowak,Monitor 32,Electronics,1,1800,Poland
-7,2025-01-04,C005,Piotr Kowalski,Notebook Premium,Office,20,18,Poland
-8,2025-01-04,C001,John Smith,Mechanical Keyboard,Electronics,1,450,Germany
-9,2025-01-05,C003,Mark Brown,Desk Lamp,Furniture,2,180,United Kingdom
-10,2025-01-05,C006,Laura Schmidt,Projector 4K,Electronics,1,7600,Germany

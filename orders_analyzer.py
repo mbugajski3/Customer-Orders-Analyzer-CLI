@@ -15,6 +15,9 @@ def load_orders(filename):
     with open(filename) as file:
         reader = csv.DictReader(file)
 
+        if reader.fieldnames is None:
+            print("Error: CSV file is empty.")
+            exit()
         orders = []
 
         for row in reader:
@@ -155,6 +158,10 @@ def main():
         exit()
     except ValueError:
         print("Error: invalid numeric value in CSV file.")
+        exit()
+
+    if not orders:
+        print("Error: CSV file contains no order data.")
         exit()
 
     total_revenue, total_orders, average_order_value, revenue_by_customer, orders_by_customer, unique_customers, revenue_by_country, revenue_by_category = calculate_metrics(orders)
