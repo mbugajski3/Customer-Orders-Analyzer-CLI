@@ -144,6 +144,10 @@ def main():
 
     filename = sys.argv[1]
 
+    if not filename.endswith(".csv"):
+        print("Error: input file must be a .csv file.")
+        exit()
+
     
     orders = load_orders(filename)
 
