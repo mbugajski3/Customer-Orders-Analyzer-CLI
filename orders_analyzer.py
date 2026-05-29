@@ -131,37 +131,40 @@ def print_report(total_revenue,
     print(f"Category with highest revenue: {top_revenue_category_name} - {top_revenue_category_value} PLN")
     print(f"Unique customers: {len(unique_customers)}")
 
+def main():
+    orders = load_orders("orders.csv")
 
-orders = load_orders("orders.csv")
+    total_revenue, total_orders, average_order_value, revenue_by_customer, orders_by_customer, unique_customers, revenue_by_country, revenue_by_category = calculate_metrics(orders)
 
-total_revenue, total_orders, average_order_value, revenue_by_customer, orders_by_customer, unique_customers, revenue_by_country, revenue_by_category = calculate_metrics(orders)
+    highest_revenue_customer_name, highest_revenue_customer_value = find_top_item(revenue_by_customer)
 
-highest_revenue_customer_name, highest_revenue_customer_value = find_top_item(revenue_by_customer)
+    top_orders_customer_name, top_orders_customer_value = find_top_item(orders_by_customer)
 
-top_orders_customer_name, top_orders_customer_value = find_top_item(orders_by_customer)
+    top_revenue_country_name, top_revenue_country_value = find_top_item(revenue_by_country)
 
-top_revenue_country_name, top_revenue_country_value = find_top_item(revenue_by_country)
+    top_revenue_category_name, top_revenue_category_value = find_top_item(revenue_by_category)
 
-top_revenue_category_name, top_revenue_category_value = find_top_item(revenue_by_category)
+    print_report(total_revenue,
+                    total_orders,
+                    average_order_value,
+                    revenue_by_customer,
+                    orders_by_customer,
+                    unique_customers,
+                    revenue_by_country,
+                    revenue_by_category,
+                    highest_revenue_customer_name,
+                    highest_revenue_customer_value,
+                    top_orders_customer_name,
+                    top_orders_customer_value,
+                    top_revenue_country_name,
+                    top_revenue_country_value,
+                    top_revenue_category_name, 
+                    top_revenue_category_value
+    )
 
-print_report(total_revenue,
-                total_orders,
-                average_order_value,
-                revenue_by_customer,
-                orders_by_customer,
-                unique_customers,
-                revenue_by_country,
-                revenue_by_category,
-                highest_revenue_customer_name,
-                highest_revenue_customer_value,
-                top_orders_customer_name,
-                top_orders_customer_value,
-                top_revenue_country_name,
-                top_revenue_country_value,
-                top_revenue_category_name, 
-                top_revenue_category_value
-)
-
+    
+if __name__ == "__main__":
+    main()
 
 
 
