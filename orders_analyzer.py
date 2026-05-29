@@ -1,5 +1,15 @@
 import csv
 
+def find_top_item(data):
+    highest_data_name = list(data.keys())[0]
+    highest_data_value = data[highest_data_name]
+    for name in data:
+        if data[name] > highest_data_value:
+            highest_data_value = data[name]
+            highest_data_name = name
+    return highest_data_name, highest_data_value
+
+
 with open("orders.csv") as file:
     reader = csv.DictReader(file)
 
@@ -71,41 +81,13 @@ with open("orders.csv") as file:
 
     average_order_value = total_revenue / total_orders
 
-    highest_revenue_customer_name = list(revenue_by_customer.keys())[0]
-    highest_revenue_customer_value = revenue_by_customer[highest_revenue_customer_name]
+    highest_revenue_customer_name, highest_revenue_customer_value = find_top_item(revenue_by_customer)
 
-    for name in revenue_by_customer:
-        if revenue_by_customer[name] > highest_revenue_customer_value:
-            highest_revenue_customer_value = revenue_by_customer[name]
-            highest_revenue_customer_name = name
+    top_orders_customer_name, top_orders_customer_value = find_top_item(orders_by_customer)
 
-    top_orders_customer_name = list(orders_by_customer.keys())[0]
-    top_orders_customer_value = orders_by_customer[top_orders_customer_name]
+    top_revenue_country_name, top_revenue_country_value = find_top_item(revenue_by_country)
 
-    for name in orders_by_customer:
-        if orders_by_customer[name] > top_orders_customer_value:
-            top_orders_customer_value = orders_by_customer[name]
-            top_orders_customer_name = name
-
-    top_revenue_country_name = list(revenue_by_country.keys())[0]
-    top_revenue_country_value = revenue_by_country[top_revenue_country_name]
-
-    for country in revenue_by_country:
-        if revenue_by_country[country] > top_revenue_country_value:
-            top_revenue_country_value = revenue_by_country[country]
-            top_revenue_country_name = country
-
-    top_revenue_category_name = list(revenue_by_category.keys())[0]
-    top_revenue_category_value = revenue_by_category[top_revenue_category_name]
-
-    for category in revenue_by_category:
-        if revenue_by_category[category] > top_revenue_category_value:
-            top_revenue_category_value = revenue_by_category[category]
-            top_revenue_category_name = category
-
-
-
-
+    top_revenue_category_name, top_revenue_category_value = find_top_item(revenue_by_category)
 
 print("Revenue by customer: ")
 for name in revenue_by_customer:
