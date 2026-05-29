@@ -153,6 +153,9 @@ def main():
     except FileNotFoundError:
         print("Error: File not found.")
         exit()
+    except ValueError:
+        print("Error: invalid numeric value in CSV file.")
+        exit()
 
     total_revenue, total_orders, average_order_value, revenue_by_customer, orders_by_customer, unique_customers, revenue_by_country, revenue_by_category = calculate_metrics(orders)
 
