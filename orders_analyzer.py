@@ -41,45 +41,53 @@ def load_orders(filename):
             orders.append(order)
         return orders
 
+
+def calculate_metrics(orders):
+
+
+    total_revenue = 0
+    total_orders = len(orders)
+    revenue_by_customer = {}
+    orders_by_customer = {}
+    unique_customers = []
+    revenue_by_country = {}
+    revenue_by_category = {}
+
+    for order in orders:
+        revenue = order["quantity"] * order["price"]
+        total_revenue += revenue
+        customer_name = order["customer_name"]
+        customer_id = order["customer_id"]
+        country = order["country"]
+        category = order["category"]
+
+        if customer_name not in revenue_by_customer:
+            revenue_by_customer[customer_name] = 0
+        revenue_by_customer[customer_name] += revenue
+
+        if customer_name not in orders_by_customer:
+            orders_by_customer[customer_name] = 0
+        orders_by_customer[customer_name] += 1
+     
+        if customer_id not in unique_customers:
+            unique_customers.append(customer_id)
+
+        if country not in revenue_by_country:
+            revenue_by_country[country] = 0
+        revenue_by_country[country] += revenue
+
+        if category not in revenue_by_category:
+            revenue_by_category[category] = 0
+        revenue_by_category[category] += revenue
+
+    average_order_value = total_revenue / total_orders
+
+    return total_revenue, total_orders, average_order_value, revenue_by_customer, orders_by_customer, unique_customers, revenue_by_country, revenue_by_category
+
+
 orders = load_orders("orders.csv")
 
-total_revenue = 0
-total_orders = len(orders)
-revenue_by_customer = {}
-orders_by_customer = {}
-unique_customers = []
-revenue_by_country = {}
-revenue_by_category = {}
-
-for order in orders:
-    revenue = order["quantity"] * order["price"]
-    total_revenue += revenue
-    customer_name = order["customer_name"]
-    customer_id = order["customer_id"]
-    country = order["country"]
-    category = order["category"]
-
-    if customer_name not in revenue_by_customer:
-        revenue_by_customer[customer_name] = 0
-    revenue_by_customer[customer_name] += revenue
-
-    if customer_name not in orders_by_customer:
-        orders_by_customer[customer_name] = 0
-    orders_by_customer[customer_name] += 1
-     
-    if customer_id not in unique_customers:
-        unique_customers.append(customer_id)
-
-    if country not in revenue_by_country:
-        revenue_by_country[country] = 0
-    revenue_by_country[country] += revenue
-
-    if category not in revenue_by_category:
-        revenue_by_category[category] = 0
-    revenue_by_category[category] += revenue
-
-
-average_order_value = total_revenue / total_orders
+total_revenue, total_orders, average_order_value, revenue_by_customer, orders_by_customer, unique_customers, revenue_by_country, revenue_by_category = calculate_metrics(orders)
 
 highest_revenue_customer_name, highest_revenue_customer_value = find_top_item(revenue_by_customer)
 
