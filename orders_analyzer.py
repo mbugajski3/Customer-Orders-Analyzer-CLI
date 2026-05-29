@@ -51,6 +51,7 @@ def load_orders(filename):
                     print(f"Error: missing value in {column}")
                     exit()
 
+
             order_id = int(row["order_id"])
             date = row["date"]
             customer_id = row["customer_id"]
@@ -61,6 +62,13 @@ def load_orders(filename):
             price = float(row["price"])
             country = row["country"]
 
+            if quantity <= 0:
+                print("Error: quantity cannot be negative or zero.")
+                exit()
+
+            if price < 0:
+                print("Error: price cannot be negative.")
+                exit()
 
 
             order = {
