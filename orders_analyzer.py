@@ -1,4 +1,5 @@
 import csv
+import re
 import sys
 
 def find_top_item(data):
@@ -18,9 +19,38 @@ def load_orders(filename):
         if reader.fieldnames is None:
             print("Error: CSV file is empty.")
             exit()
+
+        required_columns = ["order_id",
+                            "date",
+                            "customer_id",
+                            "customer_name",
+                            "product",
+                            "category",
+                            "quantity",
+                            "price",
+                            "country"
+        ]
+
+        missing_columns = []
+
+        for column in required_columns:
+            if column not in reader.fieldnames:
+                missing_columns.append(column)
+
+        if len(missing_columns) != 0:
+            print(f"Error: missing columns - {missing_columns}")
+            exit()
+
+
         orders = []
 
+
         for row in reader:
+            for column in required_columns:
+                if row[column].strip() == "":
+                    print(f"Error: missing value in {column}")
+                    exit()
+
             order_id = int(row["order_id"])
             date = row["date"]
             customer_id = row["customer_id"]
@@ -30,6 +60,8 @@ def load_orders(filename):
             quantity = int(row["quantity"])
             price = float(row["price"])
             country = row["country"]
+
+
 
             order = {
                 "order_id": order_id,
@@ -44,6 +76,7 @@ def load_orders(filename):
             }
 
             orders.append(order)
+
         return orders
 
 
