@@ -47,7 +47,7 @@ with open("orders.csv") as file:
 
         if customer_name not in orders_by_customer:
             orders_by_customer[customer_name] = 0
-        orders_by_customer[customer_name] +=1
+        orders_by_customer[customer_name] += 1
 
     average_order_value = total_revenue / total_orders
 
@@ -59,20 +59,36 @@ with open("orders.csv") as file:
             highest_revenue_customer_value = revenue_by_customer[name]
             highest_revenue_customer_name = name
 
+    top_orders_customer_name = list(orders_by_customer.keys())[0]
+    top_orders_customer_value = orders_by_customer[top_orders_customer_name]
+
+    for name in orders_by_customer:
+        if orders_by_customer[name] > top_orders_customer_value:
+            top_orders_customer_value = orders_by_customer[name]
+            top_orders_customer_name = name
 
 
 
-print(f"Total revenue: {total_revenue} PLN")
-print(f"Total orders: {total_orders}")
-print(f"Average order value: {average_order_value} PLN")
+
+
+
+
 print("Revenue by customer: ")
 for name in revenue_by_customer:
     print(f"- {name} {revenue_by_customer[name]} PLN")
-print(f"Customer with highest revenue: {highest_revenue_customer_name} - {highest_revenue_customer_value} PLN")
+print()
+print("Orders by customer: ")
 for name in orders_by_customer:
     if orders_by_customer[name] <= 1:
         print(f"- {name} {orders_by_customer[name]} order")
     else:
         print(f"- {name} {orders_by_customer[name]} orders")
+
+print()
+print(f"Total revenue: {total_revenue} PLN")
+print(f"Total orders: {total_orders}")
+print(f"Average order value: {average_order_value} PLN")
+print(f"Customer with most orders: {top_orders_customer_name} - {top_orders_customer_value} orders.")
+print(f"Customer with highest revenue: {highest_revenue_customer_name} - {highest_revenue_customer_value} PLN")
 
 
