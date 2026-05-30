@@ -1,14 +1,14 @@
 import csv
 import sys
 
-def find_top_item(data):
-    top_item_name = list(data.keys())[0]
-    top_item_value = data[top_item_name]
+def find_most_valuable_item(data):
+    find_most_valuable_item_name = list(data.keys())[0]
+    find_most_valuable_value = data[find_most_valuable_item_name]
     for name in data:
-        if data[name] > top_item_value:
-            top_item_value = data[name]
-            top_item_name = name
-    return top_item_name, top_item_value
+        if data[name] > find_most_valuable_value:
+            find_most_valuable_value = data[name]
+            find_most_valuable_item_name = name
+    return find_most_valuable_item_name, find_most_valuable_value
 
 
 def load_orders(filename):
@@ -134,28 +134,29 @@ def calculate_metrics(orders):
 
     return metrics
 
+
 def calculate_top_results(metrics):
     top_results = {}
 
-    highest_revenue_customer_name, highest_revenue_customer_value = find_top_item(metrics["revenue_by_customer"])
+    highest_revenue_customer_name, highest_revenue_customer_value = find_most_valuable_item(metrics["revenue_by_customer"])
     top_results["revenue_by_customer"] = {
         "name": highest_revenue_customer_name,
         "value": highest_revenue_customer_value
     }
 
-    top_orders_customer_name, top_orders_customer_value = find_top_item(metrics["orders_by_customer"])   
+    top_orders_customer_name, top_orders_customer_value = find_most_valuable_item(metrics["orders_by_customer"])   
     top_results["orders_by_customer"] = {
         "name": top_orders_customer_name,
         "value": top_orders_customer_value
     }
 
-    top_revenue_country_name, top_revenue_country_value = find_top_item(metrics["revenue_by_country"])
+    top_revenue_country_name, top_revenue_country_value = find_most_valuable_item(metrics["revenue_by_country"])
     top_results["revenue_by_country"] = {
         "name": top_revenue_country_name,
         "value": top_revenue_country_value
     }
 
-    top_revenue_category_name, top_revenue_category_value = find_top_item(metrics["revenue_by_category"])
+    top_revenue_category_name, top_revenue_category_value = find_most_valuable_item(metrics["revenue_by_category"])
     top_results["revenue_by_category"] = {
         "name": top_revenue_category_name,
         "value": top_revenue_category_value
